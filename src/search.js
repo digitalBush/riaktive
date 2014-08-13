@@ -60,7 +60,7 @@ module.exports = function( config, riak ) {
 			host: config.get( 'RIAK_SERVER', 'ubuntu' ),
 			port: config.get( 'RIAK_HTTP', 8098 ),
 			core: index,
-			path: '/search'
+			path: '/search/query'
 		} );
 
 		// this is kinda terrible, but Riak's URL doesn't conform to SOLR's :|
@@ -74,8 +74,7 @@ module.exports = function( config, riak ) {
 					if ( element ) return true;
 					return false;
 				} )
-				.join( '/' );;
-
+				.join( '/' );
 			queryRequest( this.options, callback );
 			return self;
 		}
@@ -112,7 +111,6 @@ module.exports = function( config, riak ) {
 					query = query.edismax();
 				}
 			}
-
 			this.solr.search( query, function( err, result ) {
 				if ( err ) {
 					reject( err );
